@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="116" fill="#ffffff"/>
+  <rect x="3" y="3" width="506" height="506" rx="113" fill="none" stroke="#e4e4e7" stroke-width="6"/>
+
+  <!-- Document -->
+  <g transform="rotate(-5 286 268)" stroke="#111827" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="212" y="104" width="208" height="330" rx="14" fill="#ffffff" stroke-width="13"/>
+    <!-- ASSIGNMENT heading -->
+    <text x="316" y="184" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="25" letter-spacing="0.3" fill="#111827" stroke="none">ASSIGNMENT</text>
+    <line x1="246" y1="206" x2="386" y2="206" stroke-width="9"/>
+    <!-- text lines -->
+    <g stroke-width="9">
+      <line x1="244" y1="250" x2="388" y2="250"/>
+      <line x1="244" y1="290" x2="388" y2="290"/>
+      <line x1="244" y1="330" x2="388" y2="330"/>
+      <line x1="244" y1="370" x2="388" y2="370"/>
+      <line x1="244" y1="410" x2="330" y2="410"/>
+    </g>
+  </g>
+
+  <!-- Arm + hand gripping the left edge -->
+  <g fill="#ffffff" stroke="#111827" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+    <!-- sleeve -->
+    <path d="M40 452 L150 372 L196 420 L86 500" fill="#ffffff"/>
+    <!-- hand / fingers -->
+    <path d="M150 372
+             C 132 352, 150 320, 178 330
+             L 250 356 C 264 361, 260 380, 246 378 L 196 366
+             L 252 392 C 266 397, 262 416, 248 414 L 198 402
+             L 250 428 C 264 433, 258 452, 244 450 L 196 438
+             L 236 462 C 248 468, 240 486, 226 480
+             L 150 448 Z" fill="#ffffff"/>
+  </g>
+</svg>
