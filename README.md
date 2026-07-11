@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- Logo goes here -->
 
-## Getting Started
+# Coverly
 
-First, run the development server:
+Coverly generates a clean assignment cover page and downloads it as a
+print-ready PDF in seconds. Built for students standing at a print shop with only
+their phone — mobile-first, distraction-free, and completely private.
+
+Everything runs in your browser. **No account, no upload, no backend, no
+tracking.** Your details are saved only to your own device.
+
+## Features
+
+- **Live A4 preview** that updates instantly as you type.
+- **One-tap PDF download** — print-ready, true to A4.
+- **Remembers your details.** Your name, roll number, department, subject and
+  semester are saved locally and restored on your next visit. Only the
+  assignment number resets each time — because that's the one thing you change.
+- **Mobile-first, keyboard-friendly, accessible.**
+- **Pluggable templates** — new cover designs can be added with a single module
+  (see [Contributing](#contributing)).
+
+## Tech stack
+
+- [Next.js](https://nextjs.org) (App Router) + [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com)
+- [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) for the form
+- [@react-pdf/renderer](https://react-pdf.org) for PDF generation
+- [lucide-react](https://lucide.dev) icons
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To build for production:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm build
+pnpm start
+```
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/                      Next.js app router (page, layout)
+components/               UI — the form, footer, and shadcn/ui primitives
+lib/
+  cover.ts                Form schema, options, and shared types
+  storage.ts              Local-storage persistence
+  download.tsx            Client-side PDF generation + download
+  site.ts                 Project constants (GitHub repo, links)
+  templates/
+    types.ts              The CoverTemplate contract
+    registry.ts           The list of available templates
+    classic/              The default template (preview + PDF + layout)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are very welcome — especially **new templates**. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for how to report an issue, add a template,
+and set up the project locally.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Released under the [MIT License](LICENSE).
