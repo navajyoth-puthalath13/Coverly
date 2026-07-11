@@ -32,7 +32,7 @@ import {
   type CoverData,
 } from "@/lib/cover";
 import { downloadCoverPdf } from "@/lib/download";
-import { GITHUB_URL } from "@/lib/site";
+import { CONTRIBUTING_URL } from "@/lib/site";
 import {
   loadPersistedCover,
   loadPersistedTemplate,
@@ -311,7 +311,7 @@ export function CoverGenerator() {
 
         {/* Open-source invitation to contribute a new cover template */}
         <a
-          href={`${GITHUB_URL}/blob/main/CONTRIBUTING.md#adding-a-new-template`}
+          href={CONTRIBUTING_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-3 block text-center text-xs text-zinc-400 transition-colors hover:text-zinc-600"
