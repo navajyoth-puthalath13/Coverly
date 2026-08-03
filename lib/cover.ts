@@ -40,6 +40,13 @@ const required = (label: string) =>
     .min(1, { message: `${label} is required` })
     .max(120, { message: `${label} is too long` });
 
+// A field that may be left blank (used by templates that don't need it).
+const optional = (label: string) =>
+  z
+    .string()
+    .trim()
+    .max(120, { message: `${label} is too long` });
+
 export const coverSchema = z.object({
   assignmentNumber: z.enum(ASSIGNMENT_OPTIONS),
   subject: required("Subject"),
@@ -47,6 +54,9 @@ export const coverSchema = z.object({
   rollNumber: required("Roll number"),
   department: required("Department"),
   semester: z.enum(SEMESTER_OPTIONS),
+  // "Submitted to" (teacher) — used by templates that show it, blank otherwise.
+  submittedToName: optional("Teacher name"),
+  submittedToDepartment: optional("Teacher department"),
 });
 
 export type CoverData = z.infer<typeof coverSchema>;
@@ -63,6 +73,8 @@ export const PERSISTED_FIELDS = [
   "rollNumber",
   "department",
   "semester",
+  "submittedToName",
+  "submittedToDepartment",
 ] as const satisfies readonly (keyof CoverData)[];
 
 export type PersistedField = (typeof PERSISTED_FIELDS)[number];
@@ -74,6 +86,8 @@ export const DEFAULT_COVER: CoverData = {
   rollNumber: "",
   department: "",
   semester: "1st Semester",
+  submittedToName: "",
+  submittedToDepartment: "",
 };
 
 /**
@@ -87,4 +101,6 @@ export const PLACEHOLDERS: Record<keyof CoverData, string> = {
   rollNumber: "Roll Number",
   department: "Department",
   semester: "1st Semester",
+  submittedToName: "Teacher Name",
+  submittedToDepartment: "Teacher Department",
 };
