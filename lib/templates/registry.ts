@@ -1,5 +1,6 @@
 import type { CoverTemplate } from "@/lib/templates/types";
 import { classicTemplate } from "./classic";
+import { modernTemplate } from "./modern";
 
 /**
  * The registry of available cover templates.
@@ -8,7 +9,7 @@ import { classicTemplate } from "./classic";
  * `classic` folder as a reference) and add it to this array — the picker,
  * preview and PDF download pick it up automatically.
  */
-export const templates: CoverTemplate[] = [classicTemplate];
+export const templates: CoverTemplate[] = [classicTemplate, modernTemplate];
 
 export const DEFAULT_TEMPLATE_ID = classicTemplate.id;
 

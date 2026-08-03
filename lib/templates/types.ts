@@ -35,4 +35,10 @@ export interface CoverTemplate {
   Preview: ComponentType<PreviewProps>;
   /** Lazily-loaded printable PDF document (@react-pdf/renderer). */
   loadDocument: () => Promise<ComponentType<DocumentProps>>;
+  /**
+   * When true, the form surfaces the optional "Submitted to" (teacher name +
+   * department) inputs, because this template renders them. Omit for templates
+   * that don't use them.
+   */
+  usesSubmittedTo?: boolean;
 }

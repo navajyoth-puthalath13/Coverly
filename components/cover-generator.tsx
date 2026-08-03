@@ -209,13 +209,30 @@ export function CoverGenerator() {
         {/* Form column */}
         <div className="order-2 flex flex-col gap-6 lg:order-1">
           {templates.length > 1 ? (
-            <SelectField
-              id="template"
-              label="Template"
-              value={templateId}
-              options={templates.map((t) => t.id)}
-              onValueChange={onTemplateChange}
-            />
+            <div className="space-y-2">
+              <Label htmlFor="template">Template</Label>
+              <Select
+                value={template.name}
+                onValueChange={(v) => {
+                  const next = templates.find((t) => t.name === v);
+                  if (next) onTemplateChange(next.id);
+                }}
+              >
+                <SelectTrigger
+                  id="template"
+                  className="h-11 w-full rounded-xl bg-white text-base shadow-sm"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {templates.map((t) => (
+                    <SelectItem key={t.id} value={t.name}>
+                      {t.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           ) : null}
 
           <div className="grid gap-5 sm:grid-cols-2">
@@ -271,6 +288,24 @@ export function CoverGenerator() {
                 })
               }
             />
+
+            {/* "Submitted to" (teacher) — only for templates that show it */}
+            {template.usesSubmittedTo ? (
+              <>
+                <TextField
+                  id="submittedToName"
+                  label="Teacher name (optional)"
+                  error={errors.submittedToName?.message}
+                  registration={register("submittedToName")}
+                />
+                <TextField
+                  id="submittedToDepartment"
+                  label="Teacher department (optional)"
+                  error={errors.submittedToDepartment?.message}
+                  registration={register("submittedToDepartment")}
+                />
+              </>
+            ) : null}
           </div>
         </div>
 
