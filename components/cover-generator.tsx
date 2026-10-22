@@ -22,7 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import {
   ASSIGNMENT_OPTIONS,
   DEFAULT_COVER,
@@ -32,7 +31,6 @@ import {
   type CoverData,
 } from "@/lib/cover";
 import { downloadCoverPdf } from "@/lib/download";
-import { CONTRIBUTING_URL } from "@/lib/site";
 import {
   loadPersistedCover,
   loadPersistedTemplate,
@@ -307,6 +305,28 @@ export function CoverGenerator() {
               </>
             ) : null}
           </div>
+
+          {/* Primary action — directly below the fields */}
+          <div className="sticky bottom-0 z-10 mt-2 -mx-4 border-t border-zinc-200/70 bg-white/85 px-4 py-4 backdrop-blur-md sm:mx-0 sm:rounded-2xl sm:border sm:px-5 lg:static lg:mt-2 lg:border-none lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
+            <Button
+              type="submit"
+              size="lg"
+              disabled={downloading}
+              className="h-14 w-full rounded-2xl text-base font-medium shadow-sm"
+            >
+              {downloading ? (
+                <>
+                  <Loader2 className="size-5 animate-spin" />
+                  Generating…
+                </>
+              ) : (
+                <>
+                  <Download className="size-5" />
+                  Download PDF
+                </>
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Preview column */}
@@ -320,39 +340,6 @@ export function CoverGenerator() {
             </Card>
           </div>
         </div>
-      </div>
-
-      {/* Primary action — reachable at the bottom, pinned on mobile. */}
-      <div className="sticky bottom-0 z-10 mt-8 -mx-4 border-t border-zinc-200/70 bg-white/85 px-4 py-4 backdrop-blur-md sm:mx-0 sm:rounded-2xl sm:border sm:px-5 lg:static lg:mt-12 lg:border-none lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
-        <Separator className="mb-4 hidden lg:block" />
-        <Button
-          type="submit"
-          size="lg"
-          disabled={downloading}
-          className="h-14 w-full rounded-2xl text-base font-medium shadow-sm lg:max-w-sm"
-        >
-          {downloading ? (
-            <>
-              <Loader2 className="size-5 animate-spin" />
-              Generating…
-            </>
-          ) : (
-            <>
-              <Download className="size-5" />
-              Download PDF
-            </>
-          )}
-        </Button>
-
-        {/* Open-source invitation to contribute a new cover template */}
-        <a
-          href={CONTRIBUTING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 block text-center text-xs text-zinc-400 transition-colors hover:text-zinc-600"
-        >
-          Love open source? Contribute a new template →
-        </a>
       </div>
     </form>
   );
