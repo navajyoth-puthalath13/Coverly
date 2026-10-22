@@ -54,6 +54,27 @@ export async function POST(request: Request) {
 
   const { name, email, title, fields, notes } = parsed.data;
 
+  // Optional image attachment — sent along as an email attachment (base64), so
+  // it lands in the inbox with no extra storage. Capped to stay within Vercel's
+  // ~4.5 MB request-body limit.
+  let attachments: { filename: string; content: string }[] | undefined;
+  const att = (payload as { attachment?: unknown }).attachment;
+  if (att && typeof att === "object") {
+    const a = att as { filename?: unknown; contentType?: unknown; data?: unknown };
+    const filename = typeof a.filename === "string" ? a.filename : "";
+    const contentType = typeof a.contentType === "string" ? a.contentType : "";
+    const data = typeof a.data === "string" ? a.data : "";
+    if (data) {
+      if (!contentType.startsWith("image/") || data.length > 3_000_000) {
+        return NextResponse.json(
+          { error: "The attached image is invalid or too large (max ~2 MB)." },
+          { status: 422 },
+        );
+      }
+      attachments = [{ filename: filename || "reference.png", content: data }];
+    }
+  }
+
   const lines = [
     ["From", name || "Anonymous"],
     ["Reply-to", email || "—"],
@@ -87,6 +108,7 @@ export async function POST(request: Request) {
         text,
         html,
         ...(email ? { reply_to: email } : {}),
+        ...(attachments ? { attachments } : {}),
       }),
     });
 

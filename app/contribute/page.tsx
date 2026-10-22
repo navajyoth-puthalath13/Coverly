@@ -8,7 +8,7 @@ import {
   type Resolver,
   type UseFormRegisterReturn,
 } from "react-hook-form";
-import { ArrowLeft, CheckCircle2, Loader2, Send } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Loader2, Paperclip, Send, X } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -70,9 +70,43 @@ function Field({
 const fieldClass =
   "w-full rounded-xl border border-input bg-white px-3 py-2.5 text-base shadow-sm outline-none transition-colors placeholder:text-zinc-400 focus-visible:border-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-200 aria-invalid:border-destructive";
 
+const MAX_IMAGE_BYTES = 2 * 1024 * 1024; // ~2 MB (Vercel request-body safe)
+
+type Attachment = { filename: string; contentType: string; data: string; size: number };
+
 export default function ContributePage() {
   const [submitted, setSubmitted] = React.useState(false);
   const [sending, setSending] = React.useState(false);
+  const [attachment, setAttachment] = React.useState<Attachment | null>(null);
+  const [fileError, setFileError] = React.useState<string | null>(null);
+
+  const onFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // allow re-selecting the same file later
+    if (!file) return;
+    setFileError(null);
+    if (!file.type.startsWith("image/")) {
+      setFileError("Please choose an image file.");
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      setFileError("Image must be under 2 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === "string" ? reader.result : "";
+      const base64 = result.split(",")[1] ?? "";
+      setAttachment({
+        filename: file.name,
+        contentType: file.type,
+        data: base64,
+        size: file.size,
+      });
+    };
+    reader.onerror = () => setFileError("Couldn't read that image. Try another.");
+    reader.readAsDataURL(file);
+  };
 
   const {
     register,
@@ -98,7 +132,16 @@ export default function ContributePage() {
       const res = await fetch("/api/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          attachment: attachment
+            ? {
+                filename: attachment.filename,
+                contentType: attachment.contentType,
+                data: attachment.data,
+              }
+            : undefined,
+        }),
       });
       if (!res.ok) {
         const body = (await res.json().catch(() => null)) as { error?: string } | null;
@@ -210,6 +253,47 @@ export default function ContributePage() {
                 <textarea
                   placeholder="Layout ideas, a reference you've seen, anything helpful."
                   {...textareaProps(register("notes"), "notes", !!errors.notes)}
+                />
+              </Field>
+
+              <Field
+                id="attachment-input"
+                label="Reference image"
+                hint="optional"
+                error={fileError ?? undefined}
+              >
+                {attachment ? (
+                  <div className="flex items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-white px-3 py-2.5 shadow-sm">
+                    <span className="truncate text-sm text-zinc-700">
+                      {attachment.filename}
+                      <span className="ml-2 text-zinc-400">
+                        {(attachment.size / 1024).toFixed(0)} KB
+                      </span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setAttachment(null)}
+                      aria-label="Remove image"
+                      className="shrink-0 rounded-md p-1 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-700"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <label
+                    htmlFor="attachment-input"
+                    className="flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-500 shadow-sm transition-colors hover:border-zinc-400 hover:text-zinc-700"
+                  >
+                    <Paperclip className="size-4" />
+                    Attach an image of the form or style you want
+                  </label>
+                )}
+                <input
+                  id="attachment-input"
+                  type="file"
+                  accept="image/*"
+                  className="sr-only"
+                  onChange={onFile}
                 />
               </Field>
 
