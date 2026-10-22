@@ -345,22 +345,22 @@ export function CoverGenerator() {
           )}
         </Button>
 
-        {/* Two ways to get a new template, at the same level */}
-        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+        {/* Two compact, equal-level ways to get a new template */}
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
           <a
             href={CONTRIBUTING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-zinc-100"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
           >
-            <Code2 className="size-4" />
+            <Code2 className="size-3.5" />
             Contribute a template
           </a>
           <Link
             href="/contribute"
-            className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-zinc-100"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
           >
-            <FilePlus2 className="size-4" />
+            <FilePlus2 className="size-3.5" />
             Request a template
           </Link>
         </div>
