@@ -249,13 +249,6 @@ export default function ContributePage() {
                 />
               </Field>
 
-              <Field id="notes" label="Anything else?" hint="optional" error={errors.notes?.message}>
-                <textarea
-                  placeholder="Layout ideas, a reference you've seen, anything helpful."
-                  {...textareaProps(register("notes"), "notes", !!errors.notes)}
-                />
-              </Field>
-
               <Field
                 id="attachment-input"
                 label="Reference image"
@@ -294,6 +287,13 @@ export default function ContributePage() {
                   accept="image/*"
                   className="sr-only"
                   onChange={onFile}
+                />
+              </Field>
+
+              <Field id="notes" label="Anything else?" hint="optional" error={errors.notes?.message}>
+                <textarea
+                  placeholder="Layout ideas, a reference you've seen, anything helpful."
+                  {...textareaProps(register("notes"), "notes", !!errors.notes)}
                 />
               </Field>
 
