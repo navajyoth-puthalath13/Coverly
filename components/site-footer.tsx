@@ -51,8 +51,15 @@ export function SiteFooter() {
       {/* Short divider — separates just the bottom section, not the whole page */}
       <div aria-hidden className="h-px w-full max-w-sm bg-zinc-200" />
 
-      {/* Two ways to get a new template */}
+      {/* Two ways to get a new template — request first, then contribute */}
       <div className="flex flex-wrap items-center justify-center gap-2">
+        <Link
+          href="/contribute"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+        >
+          <FilePlus2 className="size-3.5" />
+          Request a template
+        </Link>
         <a
           href={CONTRIBUTING_URL}
           target="_blank"
@@ -62,13 +69,6 @@ export function SiteFooter() {
           <Code2 className="size-3.5" />
           Contribute a template
         </a>
-        <Link
-          href="/contribute"
-          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
-        >
-          <FilePlus2 className="size-3.5" />
-          Request a template
-        </Link>
       </div>
 
       <div className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-white p-1 text-sm shadow-sm">
