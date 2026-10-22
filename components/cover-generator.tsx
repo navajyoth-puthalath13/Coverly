@@ -23,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import {
   ASSIGNMENT_OPTIONS,
   DEFAULT_COVER,
@@ -308,6 +307,48 @@ export function CoverGenerator() {
               </>
             ) : null}
           </div>
+
+          {/* Primary action — directly below the fields */}
+          <div className="sticky bottom-0 z-10 mt-2 -mx-4 border-t border-zinc-200/70 bg-white/85 px-4 py-4 backdrop-blur-md sm:mx-0 sm:rounded-2xl sm:border sm:px-5 lg:static lg:mt-2 lg:border-none lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
+            <Button
+              type="submit"
+              size="lg"
+              disabled={downloading}
+              className="h-14 w-full rounded-2xl text-base font-medium shadow-sm"
+            >
+              {downloading ? (
+                <>
+                  <Loader2 className="size-5 animate-spin" />
+                  Generating…
+                </>
+              ) : (
+                <>
+                  <Download className="size-5" />
+                  Download PDF
+                </>
+              )}
+            </Button>
+
+            {/* Two compact, equal-level ways to get a new template */}
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+              <a
+                href={CONTRIBUTING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+              >
+                <Code2 className="size-3.5" />
+                Contribute a template
+              </a>
+              <Link
+                href="/contribute"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+              >
+                <FilePlus2 className="size-3.5" />
+                Request a template
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Preview column */}
@@ -320,49 +361,6 @@ export function CoverGenerator() {
               <Preview data={values} />
             </Card>
           </div>
-        </div>
-      </div>
-
-      {/* Primary action — reachable at the bottom, pinned on mobile. */}
-      <div className="sticky bottom-0 z-10 mt-8 -mx-4 border-t border-zinc-200/70 bg-white/85 px-4 py-4 backdrop-blur-md sm:mx-0 sm:rounded-2xl sm:border sm:px-5 lg:static lg:mt-12 lg:border-none lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
-        <Separator className="mb-4 hidden lg:block" />
-        <Button
-          type="submit"
-          size="lg"
-          disabled={downloading}
-          className="h-14 w-full rounded-2xl text-base font-medium shadow-sm lg:max-w-sm"
-        >
-          {downloading ? (
-            <>
-              <Loader2 className="size-5 animate-spin" />
-              Generating…
-            </>
-          ) : (
-            <>
-              <Download className="size-5" />
-              Download PDF
-            </>
-          )}
-        </Button>
-
-        {/* Two compact, equal-level ways to get a new template */}
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-          <a
-            href={CONTRIBUTING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
-          >
-            <Code2 className="size-3.5" />
-            Contribute a template
-          </a>
-          <Link
-            href="/contribute"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
-          >
-            <FilePlus2 className="size-3.5" />
-            Request a template
-          </Link>
         </div>
       </div>
     </form>
