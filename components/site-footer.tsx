@@ -1,8 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { Coffee, Star } from "lucide-react";
-import { BUYMEACOFFEE_URL, GITHUB_REPO, GITHUB_URL } from "@/lib/site";
+import Link from "next/link";
+import { Code2, Coffee, FilePlus2, Star } from "lucide-react";
+import {
+  BUYMEACOFFEE_URL,
+  CONTRIBUTING_URL,
+  GITHUB_REPO,
+  GITHUB_URL,
+} from "@/lib/site";
 
 /** Compact star count, e.g. 1.2k. */
 function formatStars(n: number): string {
@@ -41,7 +47,30 @@ export function SiteFooter() {
   const stars = useGitHubStars();
 
   return (
-    <footer className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 px-4 pb-10 sm:px-6">
+    <footer className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 px-4 pt-8 pb-10 sm:px-6">
+      {/* Short divider — separates just the bottom section, not the whole page */}
+      <div aria-hidden className="h-px w-full max-w-sm bg-zinc-200" />
+
+      {/* Two ways to get a new template */}
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <a
+          href={CONTRIBUTING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+        >
+          <Code2 className="size-3.5" />
+          Contribute a template
+        </a>
+        <Link
+          href="/contribute"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+        >
+          <FilePlus2 className="size-3.5" />
+          Request a template
+        </Link>
+      </div>
+
       <div className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-white p-1 text-sm shadow-sm">
         <span className="px-3 py-1.5 text-zinc-500">Open source</span>
 

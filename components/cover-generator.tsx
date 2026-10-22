@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import {
   useForm,
   useWatch,
@@ -9,7 +8,7 @@ import {
   type Resolver,
   type UseFormRegisterReturn,
 } from "react-hook-form";
-import { Code2, Download, FilePlus2, Loader2 } from "lucide-react";
+import { Download, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -32,7 +31,6 @@ import {
   type CoverData,
 } from "@/lib/cover";
 import { downloadCoverPdf } from "@/lib/download";
-import { CONTRIBUTING_URL } from "@/lib/site";
 import {
   loadPersistedCover,
   loadPersistedTemplate,
@@ -328,26 +326,6 @@ export function CoverGenerator() {
                 </>
               )}
             </Button>
-
-            {/* Two compact, equal-level ways to get a new template */}
-            <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-              <a
-                href={CONTRIBUTING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
-              >
-                <Code2 className="size-3.5" />
-                Contribute a template
-              </a>
-              <Link
-                href="/contribute"
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-600 shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900"
-              >
-                <FilePlus2 className="size-3.5" />
-                Request a template
-              </Link>
-            </div>
           </div>
         </div>
 
