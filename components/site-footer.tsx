@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Star } from "lucide-react";
-import { GITHUB_REPO, GITHUB_URL } from "@/lib/site";
+import { Coffee, Star } from "lucide-react";
+import { BUYMEACOFFEE_URL, GITHUB_REPO, GITHUB_URL } from "@/lib/site";
 
 /** Compact star count, e.g. 1.2k. */
 function formatStars(n: number): string {
@@ -63,6 +63,16 @@ export function SiteFooter() {
           ) : null}
         </a>
       </div>
+
+      <a
+        href={BUYMEACOFFEE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-1.5 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-zinc-100"
+      >
+        <Coffee className="size-4 text-amber-500" />
+        Buy me a coffee
+      </a>
 
       <p className="text-center text-xs text-zinc-400">
         Proudly open source · runs entirely in your browser — no account, no
