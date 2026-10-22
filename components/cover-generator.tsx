@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import {
   useForm,
   useWatch,
@@ -32,7 +33,6 @@ import {
   type CoverData,
 } from "@/lib/cover";
 import { downloadCoverPdf } from "@/lib/download";
-import { CONTRIBUTING_URL } from "@/lib/site";
 import {
   loadPersistedCover,
   loadPersistedTemplate,
@@ -344,15 +344,13 @@ export function CoverGenerator() {
           )}
         </Button>
 
-        {/* Open-source invitation to contribute a new cover template */}
-        <a
-          href={CONTRIBUTING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* Invitation to request a new cover template (built-in form) */}
+        <Link
+          href="/contribute"
           className="mt-3 block text-center text-xs text-zinc-400 transition-colors hover:text-zinc-600"
         >
-          Love open source? Contribute a new template →
-        </a>
+          Need a different template? Request one →
+        </Link>
       </div>
     </form>
   );
