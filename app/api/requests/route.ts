@@ -48,19 +48,27 @@ async function createGithubIssue(
 ): Promise<boolean> {
   const { name, email, title, fields, notes } = data;
   const body = [
-    `**Wants:** ${title}`,
+    "### 📄 New template request",
+    "_Submitted through the Coverly “Request a template” form._",
+    "",
+    "**What template / cover is this?**",
+    title,
     "",
     "**Fields it should include**",
     fields,
     "",
-    "**Notes**",
-    notes || "—",
+    "**How it should look / notes**",
+    notes || "_No extra notes provided._",
+    "",
+    hasImage
+      ? `📎 A reference image was attached${imageByEmail ? " — sent to the maintainer by email." : "."}\n`
+      : "",
+    "**Requested by**",
+    `${name || "Anonymous"}${email ? ` · ${email}` : ""}`,
     "",
     "---",
-    `Submitted by: ${name || "Anonymous"}${email ? ` · ${email}` : ""}`,
-    hasImage
-      ? `📎 A reference image was attached${imageByEmail ? " (delivered by email)." : "."}`
-      : "",
+    "🙌 **Want to build this?** Comment to claim it, then add the template under " +
+      "`lib/templates/` and open a PR — see the Contributing guide. New contributors welcome!",
   ]
     .join("\n")
     .trim();
