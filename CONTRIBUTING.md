@@ -8,25 +8,63 @@ template.
 This guide walks through how to contribute in general, and then the two things
 people most often want to do: **report an issue** and **add a new template**.
 
-## How to contribute
+## How to contribute (the fork & pull-request flow)
 
-1. **Fork** the repository and **clone** your fork.
-2. Install dependencies and start the dev server:
+Coverly uses the standard open-source **fork → branch → pull request** flow: you
+work on **your own copy** of the repo and propose changes back with a PR. You
+never push directly to the main repository.
+
+1. **Fork** the repo — click **Fork** at the top-right of the GitHub page. This
+   creates your own copy at `https://github.com/<your-username>/Coverly`.
+
+2. **Clone your fork** and move into it:
+   ```bash
+   git clone https://github.com/<your-username>/Coverly.git
+   cd Coverly
+   ```
+
+3. **Add the original repo as `upstream`** so you can pull future updates:
+   ```bash
+   git remote add upstream https://github.com/navajyoth-puthalath13/Coverly.git
+   ```
+
+4. **Install dependencies and start the dev server:**
    ```bash
    pnpm install
    pnpm dev
    ```
-3. Create a branch for your change:
+
+5. **Create a branch** for your change (never commit on `main`):
    ```bash
    git checkout -b my-change
    ```
-4. Make your change. Before you push, make sure it type-checks and lints:
+
+6. **Make your change**, then make sure it type-checks and lints:
    ```bash
    pnpm exec tsc --noEmit
    pnpm lint
    ```
-5. **Commit** with a clear message, **push** to your fork, and open a
-   **Pull Request** describing what you changed and why.
+
+7. **Commit and push to your fork:**
+   ```bash
+   git add -A
+   git commit -m "Describe what you changed and why"
+   git push -u origin my-change
+   ```
+
+8. **Open the Pull Request.** After you push, GitHub shows a
+   **"Compare & pull request"** button. The PR goes **from your fork's branch →
+   the main Coverly repo's `main`**. Describe what you changed and why, and link
+   any related issue (e.g. `Closes #12`).
+
+9. A maintainer reviews it, you tweak if needed, and once approved it's merged. 🎉
+
+**Keep your fork up to date** before starting new work:
+```bash
+git checkout main
+git pull upstream main
+git push origin main
+```
 
 Keep pull requests focused — one topic per PR is easier to review and merge.
 
